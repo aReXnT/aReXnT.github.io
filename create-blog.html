@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+
+        <title>PythonToExe</title>
+        <meta charset="utf-8" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/pygment.css" />
+
+        <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="/">aReXnT's Blog <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="/">Home</a></li>
+
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/create-blog.html" rel="bookmark"
+                   title="Permalink to PythonToExe">PythonToExe</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2016-06-07T11:13:00+08:00">
+                Tue 07 June 2016
+              </abbr>
+              <address class="vcard author">By 
+                <a class="url fn" href="/author/arexnt.html"> aReXnT</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <hr />
+<h3>Pyinstaller</h3>
+<p><strong>安装Pyinstaller</strong>
+升级<code>pip</code> </p>
+<blockquote>
+<p>>&gt;python -m pip install --upgrade pip </p>
+</blockquote>
+<p>通过<code>pip</code>安装Pyinstaller</p>
+<blockquote>
+<p>>&gt;pip install pyinstaller</p>
+</blockquote>
+<p><strong>Pyinstaller使用</strong></p>
+<blockquote>
+<p>>&gt;pyinstaller -F MD5.py </p>
+</blockquote>
+<p>上面的命令<code>-F</code>则是知生成一个<code>exe</code>文件</p>
+<hr />
+<h3>py2exe</h3>
+<p><strong>使用py2exe</strong></p>
+<ol>
+<li>下载及安装</li>
+</ol>
+<p>安装<a href="http://prdownloads.sourceforge.net/py2exe">py2exe</a>并运行与你所安装的Python对应的py2exe版本的installer
+2. 编写setup.py</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">import</span> <span class="nn">py2exe</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">console</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;file.py&quot;</span><span class="p">])</span>  <span class="c1"># file是你要编译成exe的py文件</span>
+</pre></div>
+
+
+<ol>
+<li>编译</li>
+</ol>
+<p>在命令行中执行</p>
+<blockquote>
+<p>>&gt;python setup.py py2exe</p>
+</blockquote>
+<ol>
+<li>编译成一个exe文件</li>
+</ol>
+<p>如果要把python编译的所有文件打包到一个exe中，就需要在setup()这个函数中，要设置2个参数：options中的bundle_files和zipfile。
+其中<code>bundle_files</code>有效值为：</p>
+<blockquote>
+<p>3 (默认)不打包。 </p>
+<p>2 打包，但不打包Python解释器。 </p>
+<p>1 打包，包括Python解释器。</p>
+</blockquote>
+<p>zipfile的有效值为:</p>
+<blockquote>
+<p>不填(默认)--生成一个library.zip文件 </p>
+<p>None    ------把所有东西打包进.exe文件中</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/env python  </span>
+<span class="c1"># -*- coding: utf-8 -*-  </span>
+<span class="c1">#安装成windows服务的python脚本  </span>
+<span class="c1">#内容：  </span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span> 
+<span class="kn">import</span> <span class="nn">py2exe</span>
+<span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;py2exe&quot;</span><span class="p">:{</span><span class="s2">&quot;compressed&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">#压缩</span>
+                     <span class="s2">&quot;optimize&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>  
+                     <span class="s2">&quot;bundle_files&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="c1">#所有文件打包成一个exe文件  </span>
+                     <span class="p">}}</span>  
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">service</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PyWindowsService&quot;</span><span class="p">],</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+    <span class="n">zipfile</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+
+<p>参考：<a href="http://blog.csdn.net/linda1000/article/details/12909439">用py2exe打包成一个exe文件</a></p>
+            </div><!-- /.entry-content -->
+            <div class="comments">
+              <h3>Comments</h3>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                var disqus_identifier = "create-blog.html";
+                (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://arexnt.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+            </div>
+
+
+        </div><!-- /.eleven.columns -->
+
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+  </ul>
+
+<h4>Categories</h4>
+<ul class="blank">
+		<li><a href="/category/git.html">git</a></li>
+		<li><a href="/category/pelican.html">Pelican</a></li>
+		<li><a href="/category/python.html">python</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+	<ul class="blank">
+</ul>
+
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul class="blank">
+    <li><a href="https://github.com/aReXnT">Github</a></li>
+    <li><a href="https://twitter.com/aReXnT">Twitter</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'arexnt';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+  <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="/theme/js/libs/gumby.min.js"></script>
+  <script src="/theme/js/plugins.js"></script>
+</body>
+</html>

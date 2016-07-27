@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+
+        <title>使用Pelican和Github搭建博客</title>
+        <meta charset="utf-8" />
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="/theme/gumby.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/pygment.css" />
+
+        <script src="/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+
+
+
+</head>
+
+<body id="index" class="home">
+
+
+    <div class="container">
+
+        <div class="row">
+
+          <header id="banner" class="body">
+                  <h1><a href="/">aReXnT's Blog <strong></strong></a></h1>
+          </header><!-- /#banner -->
+
+            <div id="navigation" class="navbar row">
+              <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+             
+              <ul class="columns">
+                <li><a href="/">Home</a></li>
+
+
+              </ul>
+            </div>
+
+<section id="content" class="body">
+
+   <div class="row">
+        <div class="eleven columns">
+
+
+            <header>
+              <h2 class="entry-title">
+                <a href="/shi-yong-pelicanhe-githubda-jian-bo-ke.html" rel="bookmark"
+                   title="Permalink to 使用Pelican和Github搭建博客">使用Pelican和Github搭建博客</a></h2>
+           
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2016-07-23T17:18:00+08:00">
+                Sat 23 July 2016
+              </abbr>
+              <address class="vcard author">By 
+                <a class="url fn" href="/author/arexnt.html"> aReXnT</a>
+              </address>
+            </footer><!-- /.post-info -->
+            <div class="entry-content">
+              <hr />
+<h3>准备工作</h3>
+<ol>
+<li>Github</li>
+<li>Markdown编辑工具 (<a href="http://markdownpad.com/%20%E2%80%9CMarkdownPad%E2%80%9D">MarkdownPad</a>,<a href="https://www.zybuluo.com/mdeditor">Cmd Markdown</a>)</li>
+<li>Windows下<a href="http://www.equation.com/servlet/equation.cmd?fa=make">make</a>工具</li>
+</ol>
+<hr />
+<h3>环境准备</h3>
+<ol>
+<li>Python</li>
+<li>Virtualenv</li>
+<li>Pelican</li>
+<li>Git</li>
+</ol>
+<hr />
+<h3>搭建</h3>
+<p>安装Markdown和Pelican</p>
+<div class="highlight"><pre><span></span>virtualenv env
+env\Scripts\activate
+pip install pelican
+pip install markdown
+</pre></div>
+
+
+<p>创建文件夹用于保存博客</p>
+<div class="highlight"><pre><span></span>mkdir blog
+cd blog
+pelican-quickstart
+</pre></div>
+
+
+<p><code>pelican-quickstart</code>执行后，根据提示输入配置，除了部分必填基本上可以空（即默认）。这些配置都可以在<code>pelicanconf.py</code>进行更改，不用担心填错。
+<img alt="此处输入图片的描述" src="https://c7.staticflickr.com/9/8351/28528465326_021eac123d_b.jpg" /></p>
+<hr />
+<h3>用Markdown写博文</h3>
+<p>markdown格式的源文件的头部必须按以下格式书写,具体参考<a href="http://docs.getpelican.com/en/3.3.0/getting_started.html#writing-content-using-pelican">文档</a>定义。</p>
+<div class="highlight"><pre><span></span>Title: 文章标题
+Date: 创建日期
+Modified: 修改日期
+Category: 文章分类，标志本文处于该分类下
+Tags: 文章标签，标志本文处于该标签下
+Slug: 
+Author: 作者
+</pre></div>
+
+
+<p>把写好的<code>.md</code>格式的文件放到<code>blog\content</code>，然后回到<code>blog</code>目录下，执行<code>make html</code>命令进行博客的生成。</p>
+<blockquote>
+<p>make html
+(pelican e:/blog/content/ -o e:/blog/output -s e:/blog/pelicanconfg.py)</p>
+</blockquote>
+<p><code>make html</code>命令将把刚才写的博文生成html，存放到output目录下，在windows下没有make，可以执行第二行的命令代替。
+接着执行<code>make serve</code>开启测试服务器</p>
+<blockquote>
+<p>make serve
+(cd e:/blog/output/ &amp;&amp; python -m pelican.server)</p>
+</blockquote>
+<hr />
+<h3>安装主题</h3>
+<p>Pelican Themes: <a href="http://pelicanthemes.com/">DEMO</a></p>
+<p>在Github上的<a href="https://github.com/getpelican/pelican-themes">Pelican主题开源库</a></p>
+<p>使用<code>git clone</code>把主题库拉到本地</p>
+<blockquote>
+<p><code>git clone https://github.com/getpelican/pelican-themes.git</code></p>
+</blockquote>
+<p>选择喜欢的主题，然后把文件夹复制到blog目录下，修改<code>pelicanconf.py</code>配置文件，添加主题参数</p>
+<h2>&gt;<code>THEME = 'pelican-themes/gum'</code></h2>
+<h3>添加评论系统</h3>
+<p>博客在于分享，分享就需要交流。
+在<a href="https://disqus.com/">Disqus</a>上申请帐号，按照流程Disqus会分配给你站点的Shortname，记牢Shortname，如果忘了请进入admin/settings中查看。然后同理，在<code>pelicanconf.py</code>添加</p>
+<blockquote>
+<p><code>DISQUS_SITENAME = 'Shortname'</code></p>
+</blockquote>
+<hr />
+<h3>发布博文</h3>
+            </div><!-- /.entry-content -->
+            <div class="comments">
+              <h3>Comments</h3>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                var disqus_identifier = "shi-yong-pelicanhe-githubda-jian-bo-ke.html";
+                (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://arexnt.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+            </div>
+
+
+        </div><!-- /.eleven.columns -->
+
+<div class="three columns">
+
+<h4>Pages</h4>
+
+ <ul>
+  </ul>
+
+<h4>Categories</h4>
+<ul class="blank">
+		<li><a href="/category/git.html">git</a></li>
+		<li><a href="/category/pelican.html">Pelican</a></li>
+		<li><a href="/category/python.html">python</a></li>
+</ul>
+
+
+<h4>Tags</h4>
+	<ul class="blank">
+</ul>
+
+
+<nav class="widget">
+  <h4>Social</h4>
+  <ul class="blank">
+    <li><a href="https://github.com/aReXnT">Github</a></li>
+    <li><a href="https://twitter.com/aReXnT">Twitter</a></li>
+  </ul>
+</nav>
+
+</div> </div><!-- /.row -->
+
+
+</section>
+
+       </div><!-- /.row -->
+    </div><!-- /.container -->
+
+
+       <div class="container.nopad bg">
+
+    
+        <footer id="credits" class="row">
+          <div class="seven columns left-center">
+
+                   <address id="about" class="vcard body">
+                    Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                    which takes great advantage of <a href="http://python.org">Python</a>.
+                    <br />
+                    Based on the <a target="_blank" href="http://gumbyframework.com">Gumby Framework</a>
+                    </address>
+          </div>
+
+
+          <div class="seven columns">
+            <div class="row">
+              <ul class="socbtns">
+
+
+
+
+
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+    </div>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'arexnt';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+  <script src="/theme/js/libs/jquery-1.9.1.min.js"></script>
+  <script src="/theme/js/libs/gumby.min.js"></script>
+  <script src="/theme/js/plugins.js"></script>
+</body>
+</html>
